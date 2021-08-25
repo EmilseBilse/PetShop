@@ -22,10 +22,5 @@ namespace Ntombizodwa.PetShop.Domain.Services
         {
             return _repo.Add(pet);
         }
-
-        public List<PetType> GetTypes()
-        {
-            return _repo.GetAllPetTypes();
-        }
     }
 }

@@ -17,34 +17,9 @@ namespace Ntombizodwa.PetShop.Data.Repositories
 
         public Pet Add(Pet pet)
         {
-            pet.Id++;
+            pet.Id = Id++;
             PetList.Add(pet);
             return pet;
-        }
-
-        public List<PetType> GetAllPetTypes()
-        {
-            PetType cat = new PetType
-            {
-                Id = 1,
-                Name = "Cat"
-            };
-            PetType dog = new PetType
-            {
-                Id = 2,
-                Name = "Dog"
-            };
-            PetType goat = new PetType
-            {
-                Id = 3,
-                Name = "Goat"
-            };
-
-            PetTypes.AddRange(new List<PetType>
-            {
-                cat,dog,goat
-            });
-            return PetTypes;
         }
     }
 }

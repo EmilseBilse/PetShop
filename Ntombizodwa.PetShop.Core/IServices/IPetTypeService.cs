@@ -3,9 +3,9 @@ using Ntombizodwa.PetShop.Core.Models;
 
 namespace Ntombizodwa.PetShop.Core.IServices
 {
-    public interface IPetService
+    public interface IPetTypeService
     {
-        List<Pet> GetPets();
-        Pet Create(Pet pet);
+        List<PetType> GetAllPetTypes();
+        PetType GetTypeFromId(int Id);
     }
 }
