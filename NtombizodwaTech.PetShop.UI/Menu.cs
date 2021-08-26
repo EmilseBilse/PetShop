@@ -115,7 +115,7 @@ namespace NtombizodwaTech.PetShop.UI
         {
             string idString = Console.ReadLine();
             int idInt;
-            while (!int.TryParse(idString,out idInt) || idInt is < 0 or >= 7)
+            while (!int.TryParse(idString,out idInt) || idInt is < 0 or > 8)
             {
                 Print(StringConstants.InvalidInputType);
                 idString = Console.ReadLine();
