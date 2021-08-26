@@ -59,24 +59,56 @@ namespace NtombizodwaTech.PetShop.UI
             switch (updateChoice)
             {
                 case 1: //ID
-                    //_service.Remove(updatePet.Id.Value);
-                    // check if input id already exist
+                    Print(StringConstants.TypeNewId);
+                    int newId = ReturnValidId();
+                    _service.UpdatePetId(updatePet.Id.Value,newId);
                     break;
                 case 2: //Name
+                    Print(StringConstants.TypeNewName);
+                    string newName = Console.ReadLine();
+                    _service.UpdatePetName(updatePet.Id.Value,newName);
                     break;
                 case 3: //Type
+                    Print(StringConstants.SelectNewPetType);
+                    SeeAllPetTypes();
+                    int newTypeId = GetPetTypeFromUser();
+                    PetType newPetType = _typeService.GetTypeFromId(newTypeId);
+                    _service.UpdatePetType(updatePet.Id.Value,newPetType);
                     break;
                 case 4: //Birthday
+                    Print(StringConstants.SelectNewBirthday);
+                    DateTime newBirthDay = GetValidDate();
+                    _service.UpdatePetBirthday(updatePet.Id.Value,newBirthDay);
                     break;
                 case 5: //SoldDate
+                    Print(StringConstants.SelectNewSoldDate);
+                    DateTime newSoldDate = GetValidDate();
+                    _service.UpdatePetSoldDate(updatePet.Id.Value, newSoldDate);
                     break;
                 case 6: // Color
+                    Print(StringConstants.SelectNewColor);
+                    string newColor = Console.ReadLine();
+                    _service.UpdateColor(updatePet.Id.Value,newColor);
                     break;
                 case 7: //Price
-                    break;
-                default:
+                    Print(StringConstants.SelectNewPrice);
+                    double newPrice = GetValidPriceFromUser();
+                    _service.UpdatePrice(updatePet.Id.Value,newPrice);
                     break;
             }
+        }
+
+        private DateTime GetValidDate()
+        {
+            string dayInput = Console.ReadLine();
+            DateTime validDate;
+            while (!DateTime.TryParse(dayInput, out validDate))
+            {
+                Print(StringConstants.InvalidInputDay);
+                dayInput = Console.ReadLine();
+            }
+
+            return validDate;
         }
 
         private int GetChoiceIdUpdate()
@@ -89,6 +121,27 @@ namespace NtombizodwaTech.PetShop.UI
                 idString = Console.ReadLine();
             }
 
+            return idInt;
+        }
+        
+        private int ReturnValidId()
+        {
+            string idString = Console.ReadLine();
+            int idInt;
+            while (!int.TryParse(idString,out idInt) || idInt < 0)
+            {
+                bool doesIdExist = _service.DoesIdExist(idInt);
+                if (doesIdExist)
+                {
+                    Print(StringConstants.ThisIdAlreadyExists);
+                    idString = Console.ReadLine();
+                }
+                else
+                {
+                    Print(StringConstants.InvalidInputType);
+                    idString = Console.ReadLine();
+                }
+            }
             return idInt;
         }
 
@@ -117,10 +170,8 @@ namespace NtombizodwaTech.PetShop.UI
             }
         }
 
-        private void SearchOnType()
+        private int GetPetTypeFromUser()
         {
-            Print(StringConstants.SearchTypeMenuText);
-            SeeAllPetTypes();
             string petType = Console.ReadLine();
             int typeSelection;
             while (!int.TryParse(petType,out typeSelection) || typeSelection > _typeService.GetAllPetTypes().Count)
@@ -128,6 +179,15 @@ namespace NtombizodwaTech.PetShop.UI
                 Print(StringConstants.InvalidInputType);
                 petType = Console.ReadLine();
             }
+
+            return typeSelection;
+        }
+        
+        private void SearchOnType()
+        {
+            Print(StringConstants.SearchTypeMenuText);
+            SeeAllPetTypes();
+            int typeSelection = GetPetTypeFromUser();
             List<Pet> petsList = _service.GetPets();
             foreach (Pet pet in petsList)
             {
@@ -145,6 +205,19 @@ namespace NtombizodwaTech.PetShop.UI
             {
                 Print($"ID: {p.Id} | {p.Name}");
             }
+        }
+
+        private double GetValidPriceFromUser()
+        {
+            string priceInput = Console.ReadLine();
+            double price;
+            while (!double.TryParse(priceInput, out price) || price < 0)
+            {
+                Print(StringConstants.InvalidInputPrice);
+                priceInput = Console.ReadLine();
+            }
+
+            return price;
         }
         
         private void CreatePet()
@@ -166,34 +239,16 @@ namespace NtombizodwaTech.PetShop.UI
             }
             //BirthDay
             Print(StringConstants.SelectTheBirthday);
-            string birthDayInput = Console.ReadLine();
-            DateTime birthDay;
-            while (!DateTime.TryParse(birthDayInput, out birthDay))
-            {
-                Print(StringConstants.InvalidInputBirthDay);
-                birthDayInput = Console.ReadLine();
-            }
+            DateTime birthDay = GetValidDate();
             //Sold Date
             Print(StringConstants.SoldDateText);
-            string soldDayInput = Console.ReadLine();
-            DateTime soldDay;
-            while (!DateTime.TryParse(soldDayInput, out soldDay))
-            {
-                Print(StringConstants.InValidInputSoldDate);
-                soldDayInput = Console.ReadLine();
-            }
+            DateTime soldDay = GetValidDate();
             //Color
             Print(StringConstants.ColorOfPetText);
             string petColor = Console.ReadLine();
             //Price
             Print(StringConstants.PriceOfPetText);
-            string priceInput = Console.ReadLine();
-            double price;
-            while (!double.TryParse(priceInput, out price) || price < 0)
-            {
-                Print(StringConstants.InvalidInputPrice);
-                priceInput = Console.ReadLine();
-            }
+            double price = GetValidPriceFromUser();
 
             Pet pet = new Pet
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Ntombizodwa.PetShop.Core.Models;
 using Ntombizodwa.PetShop.Domain.IRepositories;
 
@@ -40,18 +41,93 @@ namespace Ntombizodwa.PetShop.Data.Repositories
             return null;
         }
 
-        public Pet AddPetWithId(Pet pet)
+        public void UpdatePetBirthday(int petId, DateTime newBirthday)
         {
-            _petList.Add(pet);
-            return pet;
+            foreach (Pet p in _petList)
+            {
+                if (p.Id == petId)
+                {
+                    p.Birthday = newBirthday;
+                }
+            }
         }
 
-        private void FixId()
+        public void UpdatePrice(int id, double newPrice)
         {
-            if ((_id + 1) > _petList.Count)
+            foreach (var p in _petList)
             {
-                _id = _petList.Count;
+                if (p.Id == id)
+                {
+                    p.Price = newPrice;
+                }
             }
+        }
+        
+        public void UpdateColor(int petId, string newColor)
+        {
+            foreach (var p in _petList)
+            {
+                if (p.Id == petId)
+                {
+                    p.Color = newColor;
+                }
+            }
+        }
+        
+        public void UpdatePetSoldDate(int petId, DateTime newSoldDate)
+        {
+            foreach (Pet p in _petList)
+            {
+                if (p.Id == petId)
+                {
+                    p.SoldDate = newSoldDate;
+                }
+            }
+        }
+
+        public void UpdatePetType(int petId, PetType newType)
+        {
+            foreach (var p in _petList)
+            {
+                if (p.Id == petId)
+                {
+                    p.Type = newType;
+                }
+            }
+        }
+
+        public void UpdatePetName(int id, string newName)
+        {
+            foreach (Pet p in _petList)
+            {
+                if (p.Id == id)
+                {
+                    p.Name = newName;
+                }
+            }
+        }
+        
+        public void UpdatePetId(int oldId, int newId)
+        {
+            foreach (Pet p in _petList)
+            {
+                if (p.Id == oldId)
+                {
+                    p.Id = newId;
+                }
+            }
+        }
+
+        public bool DoesIdExist(int id)
+        {
+            foreach (Pet p in _petList)
+            {
+                if (p.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

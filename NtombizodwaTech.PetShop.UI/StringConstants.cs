@@ -2,6 +2,14 @@
 {
     public class StringConstants
     {
+        public const string SelectNewPrice = "Please select a new price";
+        public const string SelectNewColor = "Please choose a new color";
+        public const string SelectNewSoldDate = "Type the new soldDate (Format: DD-MM-YYYY)";
+        public const string SelectNewBirthday = "Type the new birthday (Format: DD-MM-YYYY)";
+        public const string SelectNewPetType = "Please select the new type";
+        public const string ThisIdAlreadyExists = "This ID already exists, please select another ID";
+        public const string TypeNewName = "Please enter the new name";
+        public const string TypeNewId = "Select the new ID";
         public const string UpdateChoices = "ID = 1 | Name = 2 | Type = 3 | Birthday = 4 | SoldDate = 5 | Color = 6 | Price = 7";
         public const string SelectWhatToUpdate = "Select what to update";
         public const string SelectTheIdOfThePetToUpdate = "Select the ID of the pet you want to update";
@@ -24,7 +32,6 @@
         public const string SoldDateText = "Type the sold day of the pet (Format: DD-MM-YYYY)";
         public const string ColorOfPetText = "Type the color of the pet";
         public const string PriceOfPetText = "Type the price of the pet";
-        public const string InValidInputSoldDate = "Select a valid input (Format: DD-MM-YYYY)";
-        public const string InvalidInputBirthDay = "Select a valid input (Format: DD-MM-YYYY)";
+        public const string InvalidInputDay = "Select a valid input (Format: DD-MM-YYYY)";
     }
 }
