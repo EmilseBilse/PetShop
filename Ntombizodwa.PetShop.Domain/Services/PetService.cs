@@ -7,7 +7,7 @@ namespace Ntombizodwa.PetShop.Domain.Services
 {
     public class PetService : IPetService
     {
-        private IPetRepository _repo;
+        private readonly IPetRepository _repo;
         public PetService(IPetRepository repo)
         {
             _repo = repo;
@@ -21,6 +21,21 @@ namespace Ntombizodwa.PetShop.Domain.Services
         public Pet Create(Pet pet)
         {
             return _repo.Add(pet);
+        }
+
+        public void Remove(int id)
+        {
+            _repo.Remove(id);
+        }
+
+        public Pet GetPetFromId(int id)
+        {
+            return _repo.GetPetFromId(id);
+        }
+
+        public Pet AddPetWithId(Pet pet)
+        {
+            return _repo.AddPetWithId(pet);
         }
     }
 }

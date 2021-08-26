@@ -6,6 +6,6 @@ namespace Ntombizodwa.PetShop.Core.IServices
     public interface IPetTypeService
     {
         List<PetType> GetAllPetTypes();
-        PetType GetTypeFromId(int Id);
+        PetType GetTypeFromId(int id);
     }
 }

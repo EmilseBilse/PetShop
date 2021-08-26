@@ -7,5 +7,8 @@ namespace Ntombizodwa.PetShop.Core.IServices
     {
         List<Pet> GetPets();
         Pet Create(Pet pet);
+        void Remove(int id);
+        Pet GetPetFromId(int id);
+        Pet AddPetWithId(Pet pet);
     }
 }

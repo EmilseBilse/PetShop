@@ -32,6 +32,108 @@ namespace NtombizodwaTech.PetShop.UI
                 }else if (choice == 2)
                 {
                     CreatePet();
+                }else if (choice == 3)
+                {
+                    SearchOnType();
+                }else if (choice == 4)
+                {
+                    DeletePet();
+                }else if (choice == 5)
+                {
+                    UpdatePet();
+                }
+            }
+        }
+
+        private void UpdatePet()
+        {
+            PrintAllPets();
+            Print(StringConstants.SelectTheIdOfThePetToUpdate);
+            Print(StringConstants.SelectZeroToCancel);
+            int id = GetChoiceId();
+            Pet updatePet = _service.GetPetFromId(id);
+            Print($"ID: {updatePet.Id} | Name: {updatePet.Name} | Type: {updatePet.Type.Name} | Birthday: {updatePet.Birthday} | SoldDate: {updatePet.SoldDate} | Color: {updatePet.Color} | Price: {updatePet.Price}");
+            Print(StringConstants.SelectWhatToUpdate);
+            Print(StringConstants.UpdateChoices);
+            int updateChoice = GetChoiceIdUpdate();
+            switch (updateChoice)
+            {
+                case 1: //ID
+                    //_service.Remove(updatePet.Id.Value);
+                    // check if input id already exist
+                    break;
+                case 2: //Name
+                    break;
+                case 3: //Type
+                    break;
+                case 4: //Birthday
+                    break;
+                case 5: //SoldDate
+                    break;
+                case 6: // Color
+                    break;
+                case 7: //Price
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private int GetChoiceIdUpdate()
+        {
+            string idString = Console.ReadLine();
+            int idInt;
+            while (!int.TryParse(idString,out idInt) || idInt is < 0 or >= 7)
+            {
+                Print(StringConstants.InvalidInputType);
+                idString = Console.ReadLine();
+            }
+
+            return idInt;
+        }
+
+        private int GetChoiceId()
+        {
+            string idString = Console.ReadLine();
+            int idInt;
+            while (!int.TryParse(idString,out idInt) || idInt < 0)
+            {
+                Print(StringConstants.InvalidInputType);
+                idString = Console.ReadLine();
+            }
+
+            return idInt;
+        }
+
+        private void DeletePet()
+        {
+            PrintAllPets();
+            Print(StringConstants.SelectTheIdOfThePetToRemove);
+            Print(StringConstants.SelectZeroToCancel);
+            int id = GetChoiceId();
+            if (id != 0)
+            {
+                _service.Remove(id);
+            }
+        }
+
+        private void SearchOnType()
+        {
+            Print(StringConstants.SearchTypeMenuText);
+            SeeAllPetTypes();
+            string petType = Console.ReadLine();
+            int typeSelection;
+            while (!int.TryParse(petType,out typeSelection) || typeSelection > _typeService.GetAllPetTypes().Count)
+            {
+                Print(StringConstants.InvalidInputType);
+                petType = Console.ReadLine();
+            }
+            List<Pet> petsList = _service.GetPets();
+            foreach (Pet pet in petsList)
+            {
+                if (typeSelection == pet.Type.Id)
+                {
+                    Print($"ID: {pet.Id} | Name: {pet.Name} | Type: {pet.Type.Name} | Birthday: {pet.Birthday} | SoldDate: {pet.SoldDate} | Color: {pet.Color} | Price: {pet.Price}");
                 }
             }
         }
@@ -133,6 +235,9 @@ namespace NtombizodwaTech.PetShop.UI
             Print("");
             Print(StringConstants.PrintAllPetsMenuText);
             Print(StringConstants.CreatePetMenuText);
+            Print(StringConstants.SearchPetsOnTypeText);
+            Print(StringConstants.DeleteMenuText);
+            Print(StringConstants.UpdatePetMenuText);
             Print(StringConstants.ExitMenuText);
         }
 
