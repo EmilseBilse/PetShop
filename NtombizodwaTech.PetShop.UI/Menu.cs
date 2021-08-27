@@ -331,7 +331,6 @@ namespace NtombizodwaTech.PetShop.UI
         private void ShowWelcomeGreeting()
         {
             Console.WriteLine(StringConstants.WelcomeGreeting);
-            Print("");
         }
 
         private void Print(string str)
