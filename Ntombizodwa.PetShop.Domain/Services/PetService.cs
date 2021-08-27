@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ntombizodwa.PetShop.Core.IServices;
 using Ntombizodwa.PetShop.Core.Models;
 using Ntombizodwa.PetShop.Domain.IRepositories;
@@ -72,6 +73,13 @@ namespace Ntombizodwa.PetShop.Domain.Services
         public void UpdatePrice(int id, double newPrice)
         {
             _repo.UpdatePrice(id,newPrice);
+        }
+
+        public List<Pet> SortPetsByPriceList()
+        {
+            List<Pet> notSortedList = _repo.SortPetsByPriceList();
+            List<Pet> returnList = notSortedList.OrderBy(o => o.Price).ToList();
+            return returnList;
         }
     }
 }

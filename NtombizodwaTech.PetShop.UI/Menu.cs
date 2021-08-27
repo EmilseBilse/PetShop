@@ -26,22 +26,53 @@ namespace NtombizodwaTech.PetShop.UI
             int choice;
             while ((choice = GetMainMenuSelection()) != 0)
             {
-                if (choice == 1)
+                switch (choice)
                 {
-                    PrintAllPets();
-                }else if (choice == 2)
-                {
-                    CreatePet();
-                }else if (choice == 3)
-                {
-                    SearchOnType();
-                }else if (choice == 4)
-                {
-                    DeletePet();
-                }else if (choice == 5)
-                {
-                    UpdatePet();
+                    case 1:
+                        PrintAllPets();
+                        break;
+                    case 2:
+                        CreatePet();
+                        break;
+                    case 3:
+                        SearchOnType();
+                        break;
+                    case 4:
+                        DeletePet();
+                        break;
+                    case 5:
+                        UpdatePet();
+                        break;
+                    case 6:
+                        SortByPrice();
+                        break;
+                    case 7:
+                        GetFiveCheapest();
+                        break;
                 }
+            }
+        }
+
+        private void GetFiveCheapest()
+        {
+            List<Pet> sortedList = _service.SortPetsByPriceList();
+            for (int i = 0; i < 5; i++)
+            {
+                PrintPetInfo(sortedList[i]);
+            }
+        }
+
+        private void PrintPetInfo(Pet p)
+        {
+            Print($"ID: {p.Id} | Name: {p.Name} | Type: {p.Type.Name} | Birthday: {p.Birthday} | SoldDate: {p.SoldDate} | Color: {p.Color} | Price: {p.Price}");
+        }
+
+        private void SortByPrice()
+        {
+            List<Pet> sortedList = _service.SortPetsByPriceList();
+            foreach (Pet p in sortedList)
+            {
+                PrintPetInfo(p);
             }
         }
 
@@ -52,7 +83,7 @@ namespace NtombizodwaTech.PetShop.UI
             Print(StringConstants.SelectZeroToCancel);
             int id = GetChoiceId();
             Pet updatePet = _service.GetPetFromId(id);
-            Print($"ID: {updatePet.Id} | Name: {updatePet.Name} | Type: {updatePet.Type.Name} | Birthday: {updatePet.Birthday} | SoldDate: {updatePet.SoldDate} | Color: {updatePet.Color} | Price: {updatePet.Price}");
+            PrintPetInfo(updatePet);
             Print(StringConstants.SelectWhatToUpdate);
             Print(StringConstants.UpdateChoices);
             int updateChoice = GetChoiceIdUpdate();
@@ -61,39 +92,39 @@ namespace NtombizodwaTech.PetShop.UI
                 case 1: //ID
                     Print(StringConstants.TypeNewId);
                     int newId = ReturnValidId();
-                    _service.UpdatePetId(updatePet.Id.Value,newId);
+                    if (updatePet.Id != null) _service.UpdatePetId(updatePet.Id.Value, newId);
                     break;
                 case 2: //Name
                     Print(StringConstants.TypeNewName);
                     string newName = Console.ReadLine();
-                    _service.UpdatePetName(updatePet.Id.Value,newName);
+                    if (updatePet.Id != null) _service.UpdatePetName(updatePet.Id.Value, newName);
                     break;
                 case 3: //Type
                     Print(StringConstants.SelectNewPetType);
                     SeeAllPetTypes();
                     int newTypeId = GetPetTypeFromUser();
                     PetType newPetType = _typeService.GetTypeFromId(newTypeId);
-                    _service.UpdatePetType(updatePet.Id.Value,newPetType);
+                    if (updatePet.Id != null) _service.UpdatePetType(updatePet.Id.Value, newPetType);
                     break;
                 case 4: //Birthday
                     Print(StringConstants.SelectNewBirthday);
                     DateTime newBirthDay = GetValidDate();
-                    _service.UpdatePetBirthday(updatePet.Id.Value,newBirthDay);
+                    if (updatePet.Id != null) _service.UpdatePetBirthday(updatePet.Id.Value, newBirthDay);
                     break;
                 case 5: //SoldDate
                     Print(StringConstants.SelectNewSoldDate);
                     DateTime newSoldDate = GetValidDate();
-                    _service.UpdatePetSoldDate(updatePet.Id.Value, newSoldDate);
+                    if (updatePet.Id != null) _service.UpdatePetSoldDate(updatePet.Id.Value, newSoldDate);
                     break;
                 case 6: // Color
                     Print(StringConstants.SelectNewColor);
                     string newColor = Console.ReadLine();
-                    _service.UpdateColor(updatePet.Id.Value,newColor);
+                    if (updatePet.Id != null) _service.UpdateColor(updatePet.Id.Value, newColor);
                     break;
                 case 7: //Price
                     Print(StringConstants.SelectNewPrice);
                     double newPrice = GetValidPriceFromUser();
-                    _service.UpdatePrice(updatePet.Id.Value,newPrice);
+                    if (updatePet.Id != null) _service.UpdatePrice(updatePet.Id.Value, newPrice);
                     break;
             }
         }
@@ -193,8 +224,7 @@ namespace NtombizodwaTech.PetShop.UI
             {
                 if (typeSelection == pet.Type.Id)
                 {
-                    Print($"ID: {pet.Id} | Name: {pet.Name} | Type: {pet.Type.Name} | Birthday: {pet.Birthday} | SoldDate: {pet.SoldDate} | Color: {pet.Color} | Price: {pet.Price}");
-                }
+                    PrintPetInfo(pet);}
             }
         }
 
@@ -268,7 +298,7 @@ namespace NtombizodwaTech.PetShop.UI
         {
             foreach (Pet pet in _service.GetPets())
             {
-                Print($"ID: {pet.Id} | Name: {pet.Name} | Type: {pet.Type.Name} | Birthday: {pet.Birthday} | SoldDate: {pet.SoldDate} | Color: {pet.Color} | Price: {pet.Price}");
+                PrintPetInfo(pet);
             }
         }
 
@@ -293,6 +323,8 @@ namespace NtombizodwaTech.PetShop.UI
             Print(StringConstants.SearchPetsOnTypeText);
             Print(StringConstants.DeleteMenuText);
             Print(StringConstants.UpdatePetMenuText);
+            Print(StringConstants.PrintSortedListByPriceMenuText);
+            Print(StringConstants.PrintFiveCheapestTextMenu);
             Print(StringConstants.ExitMenuText);
         }
 

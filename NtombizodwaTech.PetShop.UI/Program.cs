@@ -10,11 +10,11 @@ namespace NtombizodwaTech.PetShop.UI
     {
         static void Main(string[] args)
         {
-            IPetRepository repo = new PetRepositoryInMemory();
-            IPetTypeRepository pTypeRepo = new PetTypeRepository();
+            IPetRepository petRepo = new PetRepositoryInMemory();
+            IPetTypeRepository petTypeRepo = new PetTypeRepository();
             
-            IPetService service = new PetService(repo);
-            IPetTypeService pTypeService = new PetTypeService(pTypeRepo);
+            IPetService service = new PetService(petRepo);
+            IPetTypeService pTypeService = new PetTypeService(petTypeRepo);
             
             Menu menu = new Menu(service, pTypeService);
             menu.Start();

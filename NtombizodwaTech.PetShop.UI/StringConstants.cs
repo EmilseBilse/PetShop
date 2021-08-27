@@ -2,6 +2,8 @@
 {
     public class StringConstants
     {
+        public const string PrintFiveCheapestTextMenu = "Press 7 to show the five cheapest pets";
+        public const string PrintSortedListByPriceMenuText = "Press 6 to sort pets by price";
         public const string SelectNewPrice = "Please select a new price";
         public const string SelectNewColor = "Please choose a new color";
         public const string SelectNewSoldDate = "Type the new soldDate (Format: DD-MM-YYYY)";

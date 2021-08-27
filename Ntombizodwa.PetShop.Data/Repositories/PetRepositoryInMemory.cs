@@ -21,7 +21,13 @@ namespace Ntombizodwa.PetShop.Data.Repositories
             _petList.Add(pet);
             return pet;
         }
-        
+
+        public List<Pet> SortPetsByPriceList()
+        {
+            List<Pet> tempList = _petList;
+            return tempList;
+        }
+
 
         public void Remove(int id)
         {
