@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Ntombizodwa.PetShop.Core.IServices;
 using Ntombizodwa.PetShop.Core.Models;
@@ -32,6 +33,10 @@ namespace Ntombizodwa.PetShop.Domain.Services
 
         public Pet GetPetFromId(int id)
         {
+            if (id <= 0)
+            {
+                throw new InvalidDataException($"Id must be above zero. Your value is: {id}");
+            }
             return _repo.GetPetFromId(id);
         }
 

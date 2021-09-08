@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ntombizodwa.PetShop.Core.Models;
 using Ntombizodwa.PetShop.Domain.IRepositories;
 
@@ -7,7 +8,7 @@ namespace Ntombizodwa.PetShop.Data.Repositories
 {
     public class PetRepositoryInMemory : IPetRepository
     {
-        private readonly List<Pet> _petList = new List<Pet>();
+        private static readonly List<Pet> _petList = new List<Pet>();
 
         private static int _id = 1;
         public List<Pet> FindAll()
@@ -37,14 +38,17 @@ namespace Ntombizodwa.PetShop.Data.Repositories
 
         public Pet GetPetFromId(int id)
         {
-            foreach (Pet pet in _petList)
+            /*foreach (Pet pet in _petList)
             {
                 if (pet.Id == id)
                 {
                     return pet;
                 }
             }
-            return null;
+            */
+
+            Pet pet = _petList.FirstOrDefault(pet => pet.Id == id);
+            return pet;
         }
 
         public void UpdatePetBirthday(int petId, DateTime newBirthday)
@@ -135,5 +139,12 @@ namespace Ntombizodwa.PetShop.Data.Repositories
             }
             return false;
         }
+
+        public Pet UpdateFulllPet(Pet pet)
+        {
+            //_petList = _petList.Where(p => p.Id != p.Id.ToList());
+            return null;
+        }
+        
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -21,17 +22,32 @@ namespace Ntombizodwa.PetShop.WebApi.Controllers
         }
 
         [HttpPost]
-        public Pet Create([FromBody] Pet pet)
+        public ActionResult<Pet> Create([FromBody] Pet pet)
         {
-            return _service.Create(pet);
+            var createdPet = _service.Create(pet);
+            return Created($"https://localhost/api/pets/{createdPet.Id}",createdPet);
         }
 
         [HttpGet]
-        public List<Pet> GetAll()
+        public ActionResult<List<Pet>> GetAll()
         {
-            return _service.GetPets();
+            return Ok(_service.GetPets());
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<Pet> GetById(int id)
+        {
+            Pet pet = _service.GetPetFromId(id);
+            return Ok(pet);
+        }
+
+
+        [HttpPut("{id}")]
+        public void Update()
+        {
+            
+        }
+        
         [HttpDelete]
         public void Remove(int id)
         {
