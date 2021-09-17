@@ -58,7 +58,38 @@ namespace Ntombizodwa.PetShop.WebApi.Controllers
             {
                 return StatusCode(500, "Call 911");
             }
-            
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Insurance> Remove(int id)
+        {
+            try
+            {
+                return Ok(_insureanceService.Remove(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, "Something went wrong, and that is your problem");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<Insurance> Update(int id, [FromBody] Insurance insurance)
+        {
+            try
+            {
+                if (id != insurance.Id)
+                {
+                    return BadRequest("ID in insurance must match param id");
+                }
+                insurance.Id = id;
+                return Ok(_insureanceService.Update(insurance));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
     }

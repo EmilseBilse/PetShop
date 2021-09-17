@@ -28,5 +28,15 @@ namespace Ntombizodwa.PetShop.Domain.Services
         {
             return _insuranceRepository.Create(insurance);
         }
+
+        public Insurance Remove(int id)
+        {
+            return _insuranceRepository.Remove(id);
+        }
+
+        public Insurance Update(Insurance insurance)
+        {
+            return _insuranceRepository.Update(insurance);
+        }
     }
 }

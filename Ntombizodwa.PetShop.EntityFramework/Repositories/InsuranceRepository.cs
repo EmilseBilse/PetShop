@@ -40,11 +40,53 @@ namespace Ntombizodwa.PetShop.EntityFramework.Repositories
 
         public Insurance Create(Insurance insurance)
         {
-            var entity = _ctx.Add(new InsuranceEntity
+            InsuranceEntity entity = _ctx.Add(new InsuranceEntity
             {
                 Name = insurance.Name,
                 Price = insurance.Price
             }).Entity;
+            _ctx.SaveChanges();
+            return new Insurance
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Price = entity.Price
+            };
+        }
+
+        public Insurance Remove(int id)
+        {
+             InsuranceEntity toRemove = _ctx.Insurances.Single(ie => ie.Id == id);
+             _ctx.Remove(toRemove);
+             _ctx.SaveChanges();
+             Insurance modelValue = new Insurance
+             {
+                 Id = toRemove.Id,
+                 Name = toRemove.Name,
+                 Price = toRemove.Price
+             };
+             return modelValue;
+
+             /*InsuranceEntity entity = _ctx.Remove(new InsuranceEntity {Id = id}).Entity;   //virker også
+             _ctx.SaveChanges();
+             return new Insurance
+             {
+                 Id = entity.Id,
+                 Name = entity.Name,
+                 Price = entity.Price
+             };
+             */
+        }
+
+        public Insurance Update(Insurance insurance)
+        {
+            InsuranceEntity insuranceEntity = new InsuranceEntity
+            {
+                Id = insurance.Id,
+                Name = insurance.Name,
+                Price = insurance.Price
+            };
+            InsuranceEntity entity = _ctx.Update(insuranceEntity).Entity;
             _ctx.SaveChanges();
             return new Insurance
             {

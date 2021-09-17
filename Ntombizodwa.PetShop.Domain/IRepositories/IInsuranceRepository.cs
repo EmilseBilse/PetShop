@@ -8,5 +8,7 @@ namespace Ntombizodwa.PetShop.Domain.IRepositories
         Insurance GetById(int id);
         List<Insurance> ReadAll();
         Insurance Create(Insurance insurance);
+        Insurance Remove(int id);
+        Insurance Update(Insurance insurance);
     }
 }
