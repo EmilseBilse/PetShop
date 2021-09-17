@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntombizodwa.PetShop.Data", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntombizodwa.PetShop.WebApi", "Ntombizodwa.PetShop.WebApi\Ntombizodwa.PetShop.WebApi.csproj", "{1F5C5A99-4CD9-4EA6-A0D2-5AFF4A1CB0CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntombizodwa.PetShop.EntityFramework", "Ntombizodwa.PetShop.EntityFramework\Ntombizodwa.PetShop.EntityFramework.csproj", "{EF589017-7661-42E8-9B65-F0BB8711E89D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{1F5C5A99-4CD9-4EA6-A0D2-5AFF4A1CB0CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F5C5A99-4CD9-4EA6-A0D2-5AFF4A1CB0CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F5C5A99-4CD9-4EA6-A0D2-5AFF4A1CB0CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF589017-7661-42E8-9B65-F0BB8711E89D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF589017-7661-42E8-9B65-F0BB8711E89D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF589017-7661-42E8-9B65-F0BB8711E89D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF589017-7661-42E8-9B65-F0BB8711E89D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{51026C4F-E4CC-4D43-995E-7A52EF096BF9} = {29BCBA06-0535-4459-8A48-71143816CE25}
@@ -49,5 +55,6 @@ Global
 		{6C58F42A-A2BE-46B9-B343-0B326879F8DA} = {ED74EF17-07FB-43C3-BAD8-AC241F3BC659}
 		{34FD256E-6A27-4F97-ABCC-45D9F189A4E2} = {F1C97F38-D959-4748-8826-1C58FA1B058B}
 		{1F5C5A99-4CD9-4EA6-A0D2-5AFF4A1CB0CF} = {29BCBA06-0535-4459-8A48-71143816CE25}
+		{EF589017-7661-42E8-9B65-F0BB8711E89D} = {F1C97F38-D959-4748-8826-1C58FA1B058B}
 	EndGlobalSection
 EndGlobal

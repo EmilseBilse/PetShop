@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +16,8 @@ using Ntombizodwa.PetShop.Core.IServices;
 using Ntombizodwa.PetShop.Data.Repositories;
 using Ntombizodwa.PetShop.Domain.IRepositories;
 using Ntombizodwa.PetShop.Domain.Services;
+using Ntombizodwa.PetShop.EntityFramework;
+using Ntombizodwa.PetShop.EntityFramework.Repositories;
 
 namespace Ntombizodwa.PetShop.WebApi
 {
@@ -35,10 +38,26 @@ namespace Ntombizodwa.PetShop.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Ntombizodwa.PetShop.WebApi", Version = "v1"});
             });
+            
+            var loggerFactory = LoggerFactory.Create(builder => {
+                    builder.AddConsole();
+                }
+            );
+            
+            services.AddDbContext<PetShopDbContext>(
+                opt =>
+                {
+                    opt
+                        .UseLoggerFactory(loggerFactory)
+                        .UseSqlite("Data Source=petShop.db");
+                }, ServiceLifetime.Transient);
+            
             services.AddScoped<IPetRepository, PetRepositoryInMemory>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IPetTypeRepository, PetTypeRepository>();
             services.AddScoped<IPetTypeService, PetTypeService>();
+            services.AddScoped<IInsuranceRepository, InsuranceRepository>();
+            services.AddScoped<IInsurance, InsuranceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +68,13 @@ namespace Ntombizodwa.PetShop.WebApi
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ntombizodwa.PetShop.WebApi v1"));
+                
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<PetShopDbContext>();
+                    ctx.Database.EnsureDeleted();
+                    ctx.Database.EnsureCreated();
+                }
             }
 
             app.UseHttpsRedirection();
