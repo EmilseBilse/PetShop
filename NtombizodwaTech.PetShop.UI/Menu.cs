@@ -64,7 +64,7 @@ namespace NtombizodwaTech.PetShop.UI
 
         private void PrintPetInfo(Pet p)
         {
-            Print($"ID: {p.Id} | Name: {p.Name} | Type: {p.Type.Name} | Birthday: {p.Birthday} | SoldDate: {p.SoldDate} | Color: {p.Color} | Price: {p.Price}");
+            Print($"ID: {p.Id} | Name: {p.Name} | Type:  | Birthday: {p.Birthday} | SoldDate: {p.SoldDate} | Color: {p.Color} | Price: {p.Price}");
         }
 
         private void SortByPrice()
@@ -222,9 +222,9 @@ namespace NtombizodwaTech.PetShop.UI
             List<Pet> petsList = _service.GetPets();
             foreach (Pet pet in petsList)
             {
-                if (typeSelection == pet.Type.Id)
+                /*if (typeSelection == pet.Type.Id)
                 {
-                    PrintPetInfo(pet);}
+                    PrintPetInfo(pet);}*/
             }
         }
 
@@ -283,14 +283,14 @@ namespace NtombizodwaTech.PetShop.UI
             Pet pet = new Pet
             {
                 Name = petName,
-                Type = _typeService.GetTypeFromId(typeSelection),
+                //Type = _typeService.GetTypeFromId(typeSelection),
                 Birthday = birthDay,
                 SoldDate = soldDay,
                 Color = petColor,
                 Price = price
             };
             pet = _service.Create(pet);
-            Print($"Pet created with the following properties: ID: {pet.Id} | Name: {pet.Name} | Type: {pet.Type.Name} | Birthday: {pet.Birthday} | SoldDate: {pet.SoldDate} | Color: {pet.Color} | Price: {pet.Price}");
+            Print($"Pet created with the following properties: ID: {pet.Id} | Name: {pet.Name} | Type: | Birthday: {pet.Birthday} | SoldDate: {pet.SoldDate} | Color: {pet.Color} | Price: {pet.Price}");
             Print("");
         }
 

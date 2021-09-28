@@ -18,6 +18,7 @@ using Ntombizodwa.PetShop.Domain.IRepositories;
 using Ntombizodwa.PetShop.Domain.Services;
 using Ntombizodwa.PetShop.EntityFramework;
 using Ntombizodwa.PetShop.EntityFramework.Repositories;
+using PetTypeRepository = Ntombizodwa.PetShop.EntityFramework.Repositories.PetTypeRepository;
 
 namespace Ntombizodwa.PetShop.WebApi
 {
@@ -52,12 +53,14 @@ namespace Ntombizodwa.PetShop.WebApi
                         .UseSqlite("Data Source=petShop.db");
                 }, ServiceLifetime.Transient);
             
-            services.AddScoped<IPetRepository, PetRepositoryInMemory>();
+            services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IPetTypeRepository, PetTypeRepository>();
             services.AddScoped<IPetTypeService, PetTypeService>();
             services.AddScoped<IInsuranceRepository, InsuranceRepository>();
             services.AddScoped<IInsurance, InsuranceService>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IOwnerService, OwnerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

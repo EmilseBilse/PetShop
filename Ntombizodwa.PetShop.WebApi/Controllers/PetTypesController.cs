@@ -24,5 +24,25 @@ namespace Ntombizodwa.PetShop.WebApi.Controllers
         {
             return _typeService.GetAllPetTypes();
         }
+
+        [HttpDelete]
+        public void DeletePetType(int id)
+        {
+            _typeService.deletePetType(id);
+        }
+        
+        [HttpGet("{id}")]
+        public ActionResult<PetType> ReadById(int id)
+        {
+            try
+            {
+                return Ok(_typeService.GetTypeFromId(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, "Call 911" + e);
+            }
+            
+        }
     }
 }

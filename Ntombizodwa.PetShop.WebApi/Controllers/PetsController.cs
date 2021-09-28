@@ -43,10 +43,11 @@ namespace Ntombizodwa.PetShop.WebApi.Controllers
 
 
         [HttpPut("{id}")]
-        public void Update(int id, string name)
+        public ActionResult<Pet> Update(int id)
         {
             //_service.UpdatePetName(id,name);
             //_service.updte
+            return null;
         }
         
         [HttpDelete]

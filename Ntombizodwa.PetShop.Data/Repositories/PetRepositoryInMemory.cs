@@ -23,6 +23,11 @@ namespace Ntombizodwa.PetShop.Data.Repositories
             return pet;
         }
 
+        public Pet UpdatePet(int id, Pet pet)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Pet> SortPetsByPriceList()
         {
             List<Pet> tempList = _petList;
@@ -49,6 +54,11 @@ namespace Ntombizodwa.PetShop.Data.Repositories
 
             Pet pet = _petList.FirstOrDefault(pet => pet.Id == id);
             return pet;
+        }
+
+        public void UpdatePetType(int petId, PetType newType)
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdatePetBirthday(int petId, DateTime newBirthday)
@@ -95,7 +105,7 @@ namespace Ntombizodwa.PetShop.Data.Repositories
             }
         }
 
-        public void UpdatePetType(int petId, PetType newType)
+        /*public void UpdatePetType(int petId, PetType newType)
         {
             foreach (var p in _petList)
             {
@@ -104,7 +114,7 @@ namespace Ntombizodwa.PetShop.Data.Repositories
                     p.Type = newType;
                 }
             }
-        }
+        }*/
 
         public void UpdatePetName(int id, string newName)
         {

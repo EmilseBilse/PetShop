@@ -23,5 +23,10 @@ namespace Ntombizodwa.PetShop.Domain.Services
         {
             return _repo.GetTypeFromId(id);
         }
+
+        public PetType deletePetType(int id)
+        {
+            return _repo.deletePetType(id);
+        }
     }
 }

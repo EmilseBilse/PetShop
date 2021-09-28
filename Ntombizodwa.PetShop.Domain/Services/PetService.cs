@@ -86,5 +86,10 @@ namespace Ntombizodwa.PetShop.Domain.Services
             List<Pet> returnList = notSortedList.OrderBy(o => o.Price).ToList();
             return returnList;
         }
+
+        public Pet UpdatePet(int id, Pet pet)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

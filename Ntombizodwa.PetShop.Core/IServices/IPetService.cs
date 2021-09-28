@@ -19,5 +19,6 @@ namespace Ntombizodwa.PetShop.Core.IServices
         void UpdateColor(int petId, string newColor);
         void UpdatePrice(int id, double newPrice);
         List<Pet> SortPetsByPriceList();
+        Pet UpdatePet(int id, Pet pet);
     }
 }

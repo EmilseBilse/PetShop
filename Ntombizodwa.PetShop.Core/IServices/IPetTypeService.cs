@@ -7,5 +7,6 @@ namespace Ntombizodwa.PetShop.Core.IServices
     {
         List<PetType> GetAllPetTypes();
         PetType GetTypeFromId(int id);
+        PetType deletePetType(int id);
     }
 }

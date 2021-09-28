@@ -48,5 +48,10 @@ namespace Ntombizodwa.PetShop.Data.Repositories
             }
             return null;
         }
+
+        public PetType deletePetType(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
