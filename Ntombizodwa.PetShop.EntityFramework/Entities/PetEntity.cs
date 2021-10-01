@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Ntombizodwa.PetShop.EntityFramework.Entities
 {
@@ -16,5 +17,7 @@ namespace Ntombizodwa.PetShop.EntityFramework.Entities
         public double Price { get; set; }
         public int InsuranceId { get; set; }
         public InsuranceEntity Insurance { get; set; }
+        //public List<PetColorEntity> Colors { get; set; }
+        
     }
 }

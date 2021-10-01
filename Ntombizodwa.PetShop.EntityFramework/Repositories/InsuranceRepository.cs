@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Ntombizodwa.PetShop.Core.Filtering;
 using Ntombizodwa.PetShop.Core.Models;
 using Ntombizodwa.PetShop.Domain.IRepositories;
 using Ntombizodwa.PetShop.EntityFramework.Entities;
@@ -26,16 +27,44 @@ namespace Ntombizodwa.PetShop.EntityFramework.Repositories
                 .FirstOrDefault(insurance => insurance.Id == id);
         }
 
-        public List<Insurance> ReadAll()
+        public List<Insurance> ReadAll(Filter filter)
         {
-            return _ctx.Insurances.Select(ie => new Insurance
+            var selectQuery = _ctx.Insurances
+                .Skip((filter.Page - 1) * filter.Limit)
+                .Take(filter.Limit)
+                .Select(ie => new Insurance
+                {
+                    Id = ie.Id,
+                    Name = ie.Name,
+                    Price = ie.Price
+                });
+
+            if (filter.OrderDir.ToLower().Equals("asc"))
             {
-                Id = ie.Id,
-                Name = ie.Name,
-                Price = ie.Price
-            })
-                //.Take(50)       for at lave flere sider med 50 på hver side så programmet ikke bliver for langsom
-                .ToList();
+                switch (filter.OrderBy.ToLower())
+                {
+                    case "name":
+                        selectQuery = selectQuery.OrderBy(p => p.Name);
+                        break;
+                    case "id":
+                        selectQuery = selectQuery.OrderBy(p => p.Id);
+                        break;
+                }
+            }else
+            {
+                switch (filter.OrderBy.ToLower())
+                {
+                    case "name":
+                        selectQuery = selectQuery.OrderByDescending(p => p.Name);
+                        break;
+                    case "id":
+                        selectQuery = selectQuery.OrderByDescending(p => p.Id);
+                        break;
+                }
+            }
+            return selectQuery.ToList();
+            //.Take(50)       for at lave flere sider med 50 på hver side så programmet ikke bliver for langsom
+
         }
 
         public Insurance Create(Insurance insurance)
@@ -94,6 +123,11 @@ namespace Ntombizodwa.PetShop.EntityFramework.Repositories
                 Name = entity.Name,
                 Price = entity.Price
             };
+        }
+
+        public int TotalCount()
+        {
+            return _ctx.Insurances.Count();
         }
     }
 }

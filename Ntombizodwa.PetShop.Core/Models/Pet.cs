@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Dynamic;
 
 namespace Ntombizodwa.PetShop.Core.Models
@@ -14,5 +15,6 @@ namespace Ntombizodwa.PetShop.Core.Models
         public DateTime SoldDate { get; set; }
         public string Color { get; set; }
         public double Price { get; set; }
+        public List<Color> Colors { get; set; }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ntombizodwa.PetShop.Core.Filtering;
 using Ntombizodwa.PetShop.Core.Models;
 
 namespace Ntombizodwa.PetShop.Domain.IRepositories
 {
     public interface IPetRepository
     {
-        List<Pet> FindAll();
+        List<Pet> FindAll(Filter filter);
         Pet Add(Pet pet);
         void Remove(int id);
         Pet GetPetFromId(int id);
@@ -20,5 +21,6 @@ namespace Ntombizodwa.PetShop.Domain.IRepositories
         void UpdatePrice(int id, double newPrice);
         Pet UpdatePet(int id, Pet pet);
         List<Pet> SortPetsByPriceList();
+        int TotalCount();
     }
 }

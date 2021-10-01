@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Ntombizodwa.PetShop.Core.Filtering;
 using Ntombizodwa.PetShop.Core.IServices;
 using Ntombizodwa.PetShop.Core.Models;
 using Ntombizodwa.PetShop.Domain.Services;
@@ -29,9 +30,9 @@ namespace Ntombizodwa.PetShop.WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Pet>> GetAll()
+        public ActionResult<List<Pet>> GetAll([FromQuery] Filter filter)
         {
-            return Ok(_service.GetPets());
+            return Ok(_service.GetPets(filter));
         }
 
         [HttpGet("{id}")]

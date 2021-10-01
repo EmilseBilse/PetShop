@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Ntombizodwa.PetShop.Core.Filtering;
 using Ntombizodwa.PetShop.Core.IServices;
 using Ntombizodwa.PetShop.Core.Models;
 using Ntombizodwa.PetShop.Domain.IRepositories;
@@ -16,9 +17,25 @@ namespace Ntombizodwa.PetShop.Domain.Services
             _repo = repo;
         }
 
-        public List<Pet> GetPets()
+        public int TotalCount()
         {
-            return _repo.FindAll();
+            return _repo.TotalCount();
+        }
+
+        public List<Pet> GetPets(Filter filter)
+        {
+            if (filter is not {Limit: > 0} || filter.Limit > 100)
+            {
+                throw new ArgumentException("Filter limit must be between 1 and 100");
+            }
+
+            int totalCount = TotalCount();
+            double maxPageCount = Math.Ceiling((double)totalCount / filter.Limit);
+            if (filter.Page < 1 || filter.Page > maxPageCount)
+            {
+                throw new ArgumentException("Page must be above 0");
+            }
+            return _repo.FindAll(filter);
         }
 
         public Pet Create(Pet pet)

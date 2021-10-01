@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ntombizodwa.PetShop.Core.Filtering;
 using Ntombizodwa.PetShop.Core.Models;
 
 namespace Ntombizodwa.PetShop.Core.IServices
 {
     public interface IPetService
     {
-        List<Pet> GetPets();
+        int TotalCount();
+        List<Pet> GetPets(Filter filter);
         Pet Create(Pet pet);
         void Remove(int id);
         Pet GetPetFromId(int id);

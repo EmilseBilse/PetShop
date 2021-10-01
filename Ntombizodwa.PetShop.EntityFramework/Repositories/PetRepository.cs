@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Ntombizodwa.PetShop.Core.Filtering;
 using Ntombizodwa.PetShop.Core.Models;
 using Ntombizodwa.PetShop.Domain.IRepositories;
 using Ntombizodwa.PetShop.EntityFramework.Entities;
@@ -16,12 +17,14 @@ namespace Ntombizodwa.PetShop.EntityFramework.Repositories
             _ctx = ctx;
         }
 
-        public List<Pet> FindAll()
+        public List<Pet> FindAll(Filter filter)
         {
-            return _ctx.Pets
-                .Include(pet => pet.Insurance)
-                .Include(pet => pet.Owner)
-                .Include(pet => pet.PetType)
+            var selectQuery = _ctx.Pets
+              //  .Include(pet => pet.Insurance)
+              //  .Include(pet => pet.Owner)
+              //  .Include(pet => pet.PetType)
+                .Skip((filter.Page - 1) * filter.Limit)
+                .Take(filter.Limit)
                 .Select(petEntity => new Pet
                 {
                     Id = petEntity.Id,
@@ -30,7 +33,7 @@ namespace Ntombizodwa.PetShop.EntityFramework.Repositories
                     Birthday = petEntity.BirthDate,
                     SoldDate = petEntity.SoldDate,
                     Price = petEntity.Price,
-                    Insurance = new Insurance
+               /*     Insurance = new Insurance
                     {
                         Id = petEntity.Insurance.Id,
                         Name = petEntity.Insurance.Name
@@ -44,8 +47,33 @@ namespace Ntombizodwa.PetShop.EntityFramework.Repositories
                     {
                         Id = petEntity.PetType.Id,
                         Name = petEntity.PetType.Name
-                    }
-                }).ToList();
+                    }*/
+                });
+            if (filter.OrderDir.ToLower().Equals("asc"))
+            {
+                switch (filter.OrderBy.ToLower())
+                {
+                    case "name":
+                        selectQuery = selectQuery.OrderBy(p => p.Name);
+                        break;
+                    case "id":
+                        selectQuery = selectQuery.OrderBy(p => p.Id);
+                        break;
+                }
+            }else
+            {
+                switch (filter.OrderBy.ToLower())
+                {
+                    case "name":
+                        selectQuery = selectQuery.OrderByDescending(p => p.Name);
+                        break;
+                    case "id":
+                        selectQuery = selectQuery.OrderByDescending(p => p.Id);
+                        break;
+                }
+            }
+
+            return selectQuery.ToList();
         }
 
         public Pet Add(Pet pet)
@@ -140,6 +168,11 @@ namespace Ntombizodwa.PetShop.EntityFramework.Repositories
         public List<Pet> SortPetsByPriceList()
         {
             throw new NotImplementedException();
+        }
+
+        public int TotalCount()
+        {
+            return _ctx.Pets.Count();
         }
     }
 }

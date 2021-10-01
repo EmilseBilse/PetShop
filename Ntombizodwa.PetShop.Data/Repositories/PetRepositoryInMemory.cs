@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ntombizodwa.PetShop.Core.Filtering;
 using Ntombizodwa.PetShop.Core.Models;
 using Ntombizodwa.PetShop.Domain.IRepositories;
 
@@ -14,6 +15,11 @@ namespace Ntombizodwa.PetShop.Data.Repositories
         public List<Pet> FindAll()
         {
             return _petList;
+        }
+
+        public List<Pet> FindAll(Filter filter)
+        {
+            throw new NotImplementedException();
         }
 
         public Pet Add(Pet pet)
@@ -32,6 +38,11 @@ namespace Ntombizodwa.PetShop.Data.Repositories
         {
             List<Pet> tempList = _petList;
             return tempList;
+        }
+
+        public int TotalCount()
+        {
+            throw new NotImplementedException();
         }
 
 

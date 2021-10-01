@@ -15,9 +15,22 @@ namespace Ntombizodwa.PetShop.EntityFramework
         public DbSet<OwnerEntity> Owners { get; set; }
         public DbSet<InsuranceEntity> Insurances { get; set; }
         public DbSet<PetEntity> Pets { get; set; }
-        
+        //public DbSet<PetColorEntity> PetColors { get; set; }
+        //public DbSet<ColorEntity> Colors { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
+            modelBuilder.Entity<PetColorEntity>()
+                .HasOne(pc => pc.Pet)
+                .WithMany(p => p.Colors);
+            
+            modelBuilder.Entity<PetColorEntity>()
+                .HasOne(pc => pc.Color)
+                .WithMany();
+                */
+            
+            
             modelBuilder.Entity<InsuranceEntity>()
                 .HasData(new InsuranceEntity {Id = 1, Name = "SaveStuff", Price = 22});
             modelBuilder.Entity<InsuranceEntity>()
@@ -102,6 +115,19 @@ namespace Ntombizodwa.PetShop.EntityFramework
                 Id = 3,
                 Name = "Mamma"
             });
+
+            /*
+            modelBuilder.Entity<PetColorEntity>().HasData(new PetColorEntity
+            {
+                PetId = 1,
+                ColorId = 1
+            });
+            modelBuilder.Entity<PetColorEntity>().HasData(new PetColorEntity
+            {
+                PetId = 1,
+                ColorId = 3
+            });
+            */
             
             modelBuilder.Entity<PetEntity>()
                 .HasOne(petEntity => petEntity.PetType).WithMany()
